@@ -1,24 +1,22 @@
 from django.db import models
 
-class Topic(models.Model):
-    top_name = models.CharField(max_length = 264 ,unique=True)
 
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
     def __str__(self):
-        return self.top_name
+        return self.question_text
 
-class Webpage(models.Model):
-    topic = models.ForeignKey(Topic,on_delete=models.CASCADE)
-    name = models.CharField(max_length=264,unique = True)
-    url = models.URLField(unique=True)
 
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
     def __str__(self):
-        return self.name
+        return self.choice_text
 
-class AccessRecord(models.Model):
-    name = models.ForeignKey(Webpage,on_delete=models.CASCADE)
-    date = models.DateField()
+ 
 
-    def __str__(self):
-       return str(self.date)
 
+    
 
